@@ -1,0 +1,14 @@
+{
+  "name": "bash",
+  "version": "1.0.0",
+  "description": "Hello from Linux!",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "151044",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "discord.js": "^12.0.2"
+  }
+}
