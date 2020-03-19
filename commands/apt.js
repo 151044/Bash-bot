@@ -1,0 +1,39 @@
+module.exports = {
+    name : 'apt',
+    description:'',
+    execute(message,args,sudo){
+        const {install} = require("./pacs.json");
+        if(!sudo){
+            return message.channel.send('Requires root!');
+        }
+        const main = require("../main.js");
+        if(!main.verifySudo(main.getName(),`${args[args.length - 1]}`,message)){
+            message.delete();
+            return;
+        }
+        message.delete();
+        message.channel.send("/\n/\n");
+        if(main.getName() === 'root'){
+            message.channel.send(`${message.content.substring(1,message.content.length)}`);
+        }else{
+            message.channel.send(`${message.content.substring(1,message.content.length - args[args.length - 1].length)}`);
+        }
+        if(args[0] === 'install'){
+            if(install.includes(args[1])){
+                if(args[1] === 'zoom'){
+                    message.channel.send("It works., but I don't really like it.")
+                }
+                return message.channel.send(`Successfully installed package ${args[1]}`);
+            }else if(args[1] === 'sudo'){
+                return message.channel.send('Using sudo to install sudo. How... *apt*.')
+            }else if(args[1] === 'pacman'){
+                return message.channel.send(`It is here, no fuss!`);
+            }else if(args[1] === 'windows'){
+                message.channel.send("This is a windows-free zone. Get out!");
+                return message.channel.send('Burn the heretic!');
+            }else{
+                return message.channel.send(`Cannot find package ${args[1]}`);
+            }
+        }
+    }
+}
