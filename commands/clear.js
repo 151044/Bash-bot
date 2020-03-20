@@ -8,7 +8,7 @@ module.exports = {
         }
         message.delete(1);
         return message.channel.fetchMessages({ limit: cNum }).then(mess =>{
-            mess.forEach(mes => mes.delete(1));
+            mess.forEach(mes => mes.delete());
         });
 	},
 };

@@ -2,6 +2,7 @@ module.exports = {
     name: 'su',
     description:'',
     execute(message,args,sudo){
+        message.channel.send("Deprecated. This *may* not work properly, which means it may not function.")
         if(args[0] === '-' || args[0] === 'root'){
             message.delete();
             if(args[1] === 'hhelibebcnofnenamgalsipsclarkca'){

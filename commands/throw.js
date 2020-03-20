@@ -9,7 +9,7 @@ module.exports = {
         }else if(args[0] === 'dice'){
             return message.channel.send('~random 6');
         }else{
-            return message.channel.send(`Thrown ${args[0]} away.`);
+            return message.channel.send(`Thrown ${args} away.`);
         }
     }
 }
