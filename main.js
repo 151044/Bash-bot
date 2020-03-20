@@ -98,13 +98,6 @@ client.on('message', message => {
     if(lower === 'this is the word of the lord.'){
         return message.channel.send("Thanks be to God.");
     }
-    if(message.content.toLowerCase().includes("shit")|| message.content.toLowerCase().includes("fuck")){
-        message.delete();
-        return message.channel.send("Please don't swear.");
-    }
-    if(message.content.toLowerCase() === 'swear'){
-        return message.channel.send("How creative...");
-    }
 
     //scripting
     if(message.content.toLowerCase() === "end" && scripting){
@@ -124,6 +117,8 @@ client.on('message', message => {
             var arr = collect.get(currentName);
             if(message.content.startsWith("$")){
                 arr.push(`${message.content}`);
+            }else if(message.content.endsWith("--literal")){
+                arr.push(`${message.content.substr(0,message.content.length - 9)}`);
             }else{
                 arr.push(`~${message.content}`);
             }
@@ -131,6 +126,8 @@ client.on('message', message => {
         }else{
             if(message.content.startsWith("$")){
                 collect.set(currentName,[`${message.content}`]);
+            }else if(message.content.endsWith("--literal")){
+                collect.set(currentName,[`${message.content.substr(0,message.content.length - 9)}`]);
             }else{
                 collect.set(currentName,[`~${message.content}`]);
             }
