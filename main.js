@@ -20,9 +20,13 @@ for (const file of commandFiles) {
 var logged = true;
 var user = "bash";
 var scripting = false;
-var collect = new Discord.Collection;
+var collect = new Discord.Collection();
 var currentName = "null";
-var isFirstMsg = false;
+var toSkip = 0;
+var literalScript = false;
+var userScript = "undefined";
+var isSingleUser = false;
+
 //exported functions
 function changeUser(name){
     user = name;
@@ -66,8 +70,24 @@ function removeScript(name){
 }
 function setScripting(set){
     scripting = true;
-    isFirstMsg = true;
+    toSkip++;
 }
+function deleteAllScript(){
+    collect.sweep(element =>{
+        return true;
+    });
+}
+function setLiteral(){
+    literalScript = true;
+    toSkip++;
+}
+function setSingleUser(message){
+    isSingleUser = true;
+    userScript = message.author.id;
+    toSkip++;
+}
+
+//exports
 exports.loggedIn = loggedIn;
 exports.changeUser = changeUser;
 exports.getName = getName;
@@ -77,10 +97,61 @@ exports.getScripted = getScripted;
 exports.setCurrentScript = setCurrentScript;
 exports.removeScript = removeScript;
 exports.setScripting = setScripting;
+exports.deleteAllScript = deleteAllScript;
+exports.setLiteral = setLiteral;
+exports.setSingleUser = setSingleUser;
 
 //on message, do...
 client.on('message', message => {
     var args = message.content.slice(prefix.length).split(/ +/);
+
+    //scripting
+    if(message.content.toLowerCase() === "end" && scripting){
+        scripting = false;
+        currentName = "null";
+        literalScript = false;
+        isSingleUser = false;
+        return message.channel.send("Script ended.");
+    }
+    if(scripting){
+        if(toSkip > 0){
+            toSkip--;
+            return;
+        }
+        if(isSingleUser){
+            if(!(message.author.id === userScript)){
+                return;
+            }
+        }
+        if(message.author.id === '645314809453084697' || message.author.id === '690833293167296524'){
+            return;
+        }
+        if(collect.has(currentName)){
+            var arr = collect.get(currentName);
+            if(message.content.startsWith("$")){
+                arr.push(`${message.content}`);
+            }else if(message.content.endsWith("--literal")){
+                arr.push(`${message.content.substr(0,message.content.length - 9)}`);
+            }else if(literalScript){
+                arr.push(`${message.content}`);
+            }else{
+                arr.push(`~${message.content}`);
+            }
+            collect.set(currentName,arr);
+        }else{
+            if(message.content.startsWith("$")){
+                collect.set(currentName,[`${message.content}`]);
+            }else if(message.content.endsWith("--literal")){
+                collect.set(currentName,[`${message.content.substr(0,message.content.length - 9)}`]);
+            }else if(literalScript){
+                collect.set(currentName,[`${message.content}`]);
+            }else{
+                collect.set(currentName,[`~${message.content}`]);
+            }
+        }
+        return;
+    }
+
     //custom written responses
 	if(message.content == 'Eric...'){
         return message.channel.send('You know, your stuff may be tamper-proof, but you can\'t stop me, right?');
@@ -97,42 +168,6 @@ client.on('message', message => {
     }
     if(lower === 'this is the word of the lord.'){
         return message.channel.send("Thanks be to God.");
-    }
-
-    //scripting
-    if(message.content.toLowerCase() === "end" && scripting){
-        scripting = false;
-        currentName = "null";
-        return message.channel.send("Script ended.");
-    }
-    if(scripting){
-        if(isFirstMsg){
-            isFirstMsg = false;
-            return;
-        }
-        if(message.author.id === '645314809453084697'){
-            return;
-        }
-        if(collect.has(currentName)){
-            var arr = collect.get(currentName);
-            if(message.content.startsWith("$")){
-                arr.push(`${message.content}`);
-            }else if(message.content.endsWith("--literal")){
-                arr.push(`${message.content.substr(0,message.content.length - 9)}`);
-            }else{
-                arr.push(`~${message.content}`);
-            }
-            collect.set(currentName,arr);
-        }else{
-            if(message.content.startsWith("$")){
-                collect.set(currentName,[`${message.content}`]);
-            }else if(message.content.endsWith("--literal")){
-                collect.set(currentName,[`${message.content.substr(0,message.content.length - 9)}`]);
-            }else{
-                collect.set(currentName,[`~${message.content}`]);
-            }
-        }
-        return;
     }
 
     //checks
