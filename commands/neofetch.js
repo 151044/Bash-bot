@@ -1,6 +1,7 @@
 module.exports = {
     name : 'neofetch',
-    description:'',
+    description:'Shows detailed system information',
+    isHidden:false,
     execute(message,args,sudo){
         message.channel.send("discord@bot-for-discord");
         message.channel.send("OS: Elementary-Arch 39.8 Zorin Mint-Edition");

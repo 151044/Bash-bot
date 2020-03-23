@@ -1,6 +1,7 @@
 module.exports = {
     name:"logout",
-    description:"Logout",
+    description:"Logs out of this user account.",
+    isHidden:false,
     execute(message,args,sudo){
         const main = require("../main.js")
         message.channel.send("Logged out.");

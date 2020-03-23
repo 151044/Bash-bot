@@ -1,6 +1,7 @@
 module.exports = {
     name : 'pacman',
-    description:'',
+    description:'The pacman package manager.',
+    isHidden:false,
     execute(message,args,sudo){
         const {install} = require("./pacs.json");
         if(!sudo){

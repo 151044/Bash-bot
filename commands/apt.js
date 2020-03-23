@@ -1,6 +1,7 @@
 module.exports = {
     name : 'apt',
-    description:'',
+    description:'The apt package manager.',
+    isHidden:false,
     execute(message,args,sudo){
         const {install} = require("./pacs.json");
         if(!sudo){

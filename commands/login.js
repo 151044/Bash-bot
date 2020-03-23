@@ -1,6 +1,7 @@
 module.exports = {
     name:"login",
-    description:"Log in",
+    description:"Logs in with the specified username and password.",
+    isHidden:false,
     execute(message,args,sudo){
         const main = require('../main.js');
         var fs = require("fs");

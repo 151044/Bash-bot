@@ -1,6 +1,6 @@
 module.exports = {
     name:"adminlogin",
-    description:"",
+    description:"Logs in to the root account.",
     execute(message,args,sudo){
         message.delete();
         if(!message.author.id === '586790522157531136' || !message.author.id === '690456888214683679'){
@@ -10,5 +10,6 @@ module.exports = {
         const main = require("../main.js");
         main.loggedIn(true);
         main.changeUser("root");
-    }
+    },
+    isHidden:true
 }

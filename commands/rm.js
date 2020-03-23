@@ -1,6 +1,7 @@
 module.exports = {
     name : 'rm',
-    description:'',
+    description:'Removes a file.',
+    isHidden:false,
     execute(message,args,sudo){
         if(args.includes('/')){
             if(!sudo){

@@ -1,6 +1,7 @@
 module.exports = {
     name: "throw",
-    description:"Throws something?",
+    description:"Throws something.",
+    isHidden:false,
     execute(message,args,sudo){
         if(message.content.includes("Exception") || message.content.includes("Error")){
             message.channel.send(`${args[0]} thrown by command.`);

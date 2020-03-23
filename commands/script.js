@@ -1,6 +1,7 @@
 module.exports = {
     name:"script",
-    description:"",
+    description:"The scripting function. Use '~script help' to look for help.",
+    isHidden:true,
     execute(message,args,sudo){
         var main = require("../main.js");
         if(args[0] === "new"){
@@ -47,6 +48,39 @@ module.exports = {
             }else{
                 return message.channel.send("No such script found.");
             }
+        }else if(args[0] === 'help'){
+            const Discord = require("discord.js");
+            const exampleEmbed = new Discord.MessageEmbed()
+	        .setColor('#0099ff')
+	        .setTitle('Script help')
+            .setAuthor('Bash')
+            .setDescription(`
+            
+     Script help
+            Subcommands for script: new,delete,run,repeat,help.
+
+            Scripts capture message content until the word 'end' is typed.
+
+            'new' creates a new script. All users may participate in this script. 
+            The script automatically appends ~ to every line unless that line ends in --literal.
+            To block other users from participating in the making of this script, use the --user-only flag.
+            If the entire script is intended to be a literal, it is recommended to use the --literal flag at creation time to prevent excessive typing.
+            A typical usage may be: ~script new test --user-only --literal, where test is the name of this script.
+            If the script exists already, you will need to delete it first to make another script of that name.
+
+            'delete' deletes a script with the given name.
+            Use ~script delete test to delete a script named 'test'.
+
+            'run' runs a script with the specified name. 
+            Use ~script run test to run a script with the name 'test'.
+
+            'repeat' runs the script with the specified times to repeat.
+            Use ~script repeat test 3 to repeat the script 'test' 3 times.
+            Warning: Excessively large values for repeat may crash the bot.
+
+
+        `)
+            return message.channel.send(exampleEmbed);
         }else{
             return message.channel.send("No flag specified.");
         }

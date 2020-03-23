@@ -1,6 +1,7 @@
 module.exports = {
     name : "fsck",
-    description:"Checks file system",
+    description:"Checks file system for errors.",
+    isHidden:false,
     execute(message,args,sudo){
         if(!sudo){
             return message.channel.send('This action is potentially destructive. Please use root.')

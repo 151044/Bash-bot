@@ -1,6 +1,7 @@
 module.exports = {
     name: 'su',
-    description:'',
+    description:'Switches user. Is deprecated and may not work.',
+    isHidden:false,
     execute(message,args,sudo){
         message.channel.send("Deprecated. This *may* not work properly, which means it may not function.")
         if(args[0] === '-' || args[0] === 'root'){

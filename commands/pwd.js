@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'pwd',
-	description: 'no u',
+	description: 'Prints the working directory.',
+	isHidden:true,
 	execute(message, args,sudo) {
         return message.channel.send("/mnt/var/opt/bin/dpkg");
 	},

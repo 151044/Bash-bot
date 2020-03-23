@@ -86,6 +86,26 @@ function setSingleUser(message){
     userScript = message.author.id;
     toSkip++;
 }
+function getCommand(name,readHidden){
+    if(!client.commands.has(name)){
+        return client.commands.get("nocmd");
+    }
+    var cmd = client.commands.get(name);
+    if(cmd.isHidden && !readHidden){
+        return client.commands.get("nocmd");
+    }
+    return cmd;
+}
+function getCommands(readHidden){
+    var ret = [];
+    client.commands.each(cmd =>{
+        if(!readHidden && cmd.isHidden){
+            return;
+        }
+        ret.push(cmd);
+    });
+    return ret;
+}
 
 //exports
 exports.loggedIn = loggedIn;
@@ -100,6 +120,8 @@ exports.setScripting = setScripting;
 exports.deleteAllScript = deleteAllScript;
 exports.setLiteral = setLiteral;
 exports.setSingleUser = setSingleUser;
+exports.getCommand = getCommand;
+exports.getCommands = getCommands;
 
 //on message, do...
 client.on('message', message => {

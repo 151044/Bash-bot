@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'random',
-	description: 'The random function.',
+    description: 'Gets a random number from 0 to the given number.',
+    isHidden:false,
 	execute(message, args,sudo) {
         const num = parseInt(args);
         if(Number.isNaN(num)){
