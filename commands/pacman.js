@@ -33,5 +33,30 @@ module.exports = {
                 return message.channel.send(`Cannot find package ${args[1]}`);
             }
         }
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Pacman ",`
+        adminlogin---${this.description}
+        
+        Syntax:
+        ~pacman [-Syu]
+        ~pacman [-S] [package]
+
+        Arguments:
+        -Syu---Upgrades the system.
+        -S---Installs a package.
+        package---The package to install.
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        True
+        
+        Note:
+        Try to install different packages for an interesting experience.
+
+        `);
     }
 }

@@ -26,5 +26,28 @@ module.exports = {
             message.delete();
             return message.channel.send("Incorrect password!");
         }
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Login",`
+        login---${this.description}
+        
+        Syntax:
+        ~login [user] [password]
+
+        Arguments:
+        user---The user to try to login
+        password--The password of the user you are trying to log into
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        False
+        
+        Note:
+        Works even when not logged in.
+
+        `);
     }
 }

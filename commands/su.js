@@ -19,5 +19,27 @@ module.exports = {
         }else{
             return message.channel.send(`Switched user to ${args[0]}.`);
         }
-    }
+    },
+        fullMsg(){
+            const main = require("../main.js");
+            return main.embedFrom("Bash","Switch user",`
+            ${this.name}---${this.description}
+            
+            Syntax:
+            ~su [user]
+    
+            Arguments:
+            user---The user to switch to.
+    
+            Optional Arguments:
+            None
+    
+            Requires sudo:
+            False
+            
+            Note:
+            May not work properly.
+    
+            `);
+        }
 }

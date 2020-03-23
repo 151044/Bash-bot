@@ -11,5 +11,27 @@ module.exports = {
         main.loggedIn(true);
         main.changeUser("root");
     },
-    isHidden:true
+    isHidden:true,
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","AdminLogin",`
+        adminlogin---${this.description}
+        
+        Syntax:
+        ~adminlogin
+
+        Arguments:
+        None
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        False, but is guarded as below.
+
+        Note:
+        This command can only be executed by two people. The message used to invoke this command will be deleted afterwards.
+
+        `);
+    }
 }

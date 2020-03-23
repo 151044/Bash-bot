@@ -37,5 +37,27 @@ module.exports = {
         }else{
             return message.channel.send(`Succeessfully removed ${args[0]}`);
         }
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Remove File",`
+        ${this.name}---${this.description}
+        
+        Syntax:
+        ~rm [file] {-rf}
+
+        Arguments:
+        file---The file to remove.
+
+        Optional Arguments:
+        -rf---Recursively force delete every file contained within, if this is a direcotry.
+
+        Requires sudo:
+        True, if removing mission critical files.
+        
+        Note:
+        Try a few files to get the hang of it.
+
+        `);
     }
 }

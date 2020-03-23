@@ -8,5 +8,27 @@ module.exports = {
             return message.channel.send("No number detected!");
         }
         return message.channel.send(`${Math.floor(Math.random() * num)}`);
-	},
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Random",`
+        random---${this.description}
+        
+        Syntax:
+        ~random [number]
+
+        Arguments:
+        number---The upper bound for random generation.
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        False
+        
+        Note:
+        Not applicatable.
+
+        `);
+    }
 };

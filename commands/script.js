@@ -1,18 +1,18 @@
 module.exports = {
     name:"script",
     description:"The scripting function. Use '~script help' to look for help.",
-    isHidden:true,
+    isHidden:false,
     execute(message,args,sudo){
         var main = require("../main.js");
         if(args[0] === "new"){
             if(main.hasScript(args[1])){
                 return message.channel.send("This script already exists. Please delete it first.");
             }else{
-                if(message.content.includes("--literal")){
+                if(message.content.includes("--literal") || message.content.includes("-l")){
                     main.setLiteral();
                     message.channel.send("This is a literal script.");
                 }
-                if(message.content.includes("--user-only")){
+                if(message.content.includes("--user-only")|| message.content.includes("-u")){
                     main.setSingleUser(message);
                     message.channel.send(`Only user ${message.author}'s messages will be included. Other user's outputs will be ignored`);
                 }
@@ -84,5 +84,38 @@ module.exports = {
         }else{
             return message.channel.send("No flag specified.");
         }
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Script",`
+        ${this.name}---${this.description}
+        
+        Syntax:
+        ~script new [name] {--user-only/--literal/-u/-l}
+        ~script run [name]
+        ~script delete [name/all]
+        ~script repeat [name] [times]
+        ~script help
+
+        Arguments:
+        new---Creates a new script.
+        run---Runs the script.
+        delete---Deletes the script specified.
+        repeat---Repeates the script for the number of times specified.
+        help--Receive even more detailed help.
+
+        name---The name of the script to operate upon.
+
+        Optional Arguments:
+        [--user-only/-u]---Only the user will be able to add items to this script.
+        [--literal/-l]---No ~ will be appended to the start of every message received.
+
+        Requires sudo:
+        False
+        
+        Note:
+        Not applicatable.
+
+        `);
     }
 }

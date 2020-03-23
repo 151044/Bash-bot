@@ -35,6 +35,35 @@ module.exports = {
             }else{
                 return message.channel.send(`Cannot find package ${args[1]}`);
             }
+        }else if(args[0] === 'remove'){
+            if(install.includes(args[1])){
+                return message.channel.send(`Sucessfully removed ${args[1]}`);
+            }else{
+                return message.channel.send(`Cannot find package ${args[1]}`);
+            }
         }
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","apt",`
+        apt---${this.description}
+        
+        Syntax:
+        ~apt [install/remove] [package name]
+
+        Arguments:
+        install---Installs a package, if available.
+        remove---Removes a package, if possible
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        True
+
+        Note:
+        Try to install different packages for an interesting experience.
+
+        `);
     }
 }

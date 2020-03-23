@@ -20,5 +20,27 @@ module.exports = {
             return message.channel.send("Disk check complete.");
         }
         return message.channel.send("Disk check complete.");
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","File Systems Check",`
+        fsck---${this.description}
+        
+        Syntax:
+        ~fsck [device]
+
+        Arguments:
+        device---The device to check
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        True
+        
+        Note:
+        A simple file systems check.
+
+        `);
     }
 }

@@ -19,5 +19,27 @@ module.exports = {
         message.channel.send("CPU: Intel i11-7980HK (32) @ 9.80 GHz");
         message.channel.send("GPU: Nvidia-Iris GeForce Radeon 4000");
         return message.channel.send("Memory: -2,147,483,647 / 204800 KiB")
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Show system information.",`
+        neofetch---${this.description}
+        
+        Syntax:
+        ~neofetch
+
+        Arguments:
+        None
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        False
+        
+        Note:
+        Do let this one surprise you.
+
+        `);
     }
 }

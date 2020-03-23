@@ -22,5 +22,27 @@ module.exports = {
         }else{
             return message.channel.send(`Available sub-commands:js,py`);
         }
-	},
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Developer Help",`
+        devhelp---${this.description}
+        
+        Syntax:
+        ~devhelp [lang] [Class]
+
+        Arguments:
+        lang--The language to look up. Currently, it only accepts js and py.
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        False
+        
+        Note:
+        This command access the URL of documentation directly
+
+        `);
+    }
 };

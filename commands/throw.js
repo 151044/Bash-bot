@@ -18,5 +18,27 @@ module.exports = {
         }else{
             return message.channel.send(`Thrown ${args} away.`);
         }
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Throw Utility",`
+        ${this.name}---${this.description}
+        
+        Syntax:
+        ~throw [object]
+
+        Arguments:
+        object---The object to try to throw.
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        False
+        
+        Note:
+        Try different objects.
+
+        `);
     }
 }

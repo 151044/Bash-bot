@@ -8,5 +8,27 @@ module.exports = {
             return message.channel.send("Please enter a number.")
         }
         return message.channel.bulkDelete(cNum + 1);
-	},
+    },
+    fullMsg(){
+        const main = require("../main.js");
+        return main.embedFrom("Bash","Clear",`
+        clear---${this.description}
+        
+        Syntax:
+        ~clear [number]
+
+        Arguments:
+        number--The numbe of messages to delete.
+
+        Optional Arguments:
+        None
+
+        Requires sudo:
+        False
+        
+        Note:
+        Please enter a number as the second argument.
+
+        `);
+    }
 };

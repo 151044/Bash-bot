@@ -2,8 +2,35 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const {token,prefix} = require('./config.json');
+
+//vars
+var logged = true;
+var user = "bash";
+var scripting = false;
+var collect = new Discord.Collection();
+var currentName = "null";
+var toSkip = 0;
+var literalScript = false;
+var userScript = "undefined";
+var isSingleUser = false;
+var write = {
+    loggedIn:user
+};
+var writeTo = {
+};
+
+//On login, restore from state
 client.once('ready', () => {
-	console.log('Ready!');
+    var state = JSON.parse(fs.readFileSync('./state/appState.json'));
+    user = state.loggedIn;
+    if(user === 'No user.'){
+        loggedIn = false;
+    }
+    var obj = JSON.parse(fs.readFileSync("./state/script.json"));
+    for(var name in obj){
+        collect.set(name,obj[name]);
+    }
+    console.log('Ready!');
 });
 const fs = require('fs');
 client.login(token);
@@ -16,20 +43,16 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-//vars
-var logged = true;
-var user = "bash";
-var scripting = false;
-var collect = new Discord.Collection();
-var currentName = "null";
-var toSkip = 0;
-var literalScript = false;
-var userScript = "undefined";
-var isSingleUser = false;
-
 //exported functions
 function changeUser(name){
     user = name;
+    write.loggedIn = name;
+    fs.writeFile('./state/appState.json',JSON.stringify(write,null,4),(err) => {
+        if(err){
+            throw err;
+        }
+        console.log("Written change to file.");
+    });
 }
 function loggedIn(log){
     logged = log;
@@ -64,6 +87,15 @@ function setCurrentScript(name){
 function removeScript(name){
     if(collect.has(name)){
         collect.delete(name);
+        writeTo = {   
+        };
+        for(var[k,v] of collect){
+            writeTo[k] = v;
+        }
+        fs.writeFile('./state/script.json',JSON.stringify(writeTo,null,4),(err) =>{
+            if(err) throw err;
+            console.log("Wrote script file.");
+        });
         return true;
     }
     return false;
@@ -75,6 +107,12 @@ function setScripting(set){
 function deleteAllScript(){
     collect.sweep(element =>{
         return true;
+    });
+    writeTo = { 
+    };
+    fs.writeFile('./state/script.json',JSON.stringify(writeTo,null,4),(err) =>{
+        if(err) throw err;
+        console.log("Wrote script file.");
     });
 }
 function setLiteral(){
@@ -102,9 +140,29 @@ function getCommands(readHidden){
         if(!readHidden && cmd.isHidden){
             return;
         }
+        if(cmd.name === 'nocmd'){
+            return;
+        }
         ret.push(cmd);
     });
     return ret;
+}
+function hasCommand(name,showActual){
+    if(!client.commands.has(name)){
+        return false;
+    }
+    if(client.commands.get(name).isHidden && showActual){
+        return true;
+    }
+    return false;
+}
+function embedFrom(author,title,msg){
+    const embed = new Discord.MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle(title)
+    .setAuthor(author)
+    .setDescription(msg);
+    return embed;
 }
 
 //exports
@@ -122,6 +180,8 @@ exports.setLiteral = setLiteral;
 exports.setSingleUser = setSingleUser;
 exports.getCommand = getCommand;
 exports.getCommands = getCommands;
+exports.embedFrom = embedFrom;
+exports.hasCommand = hasCommand;
 
 //on message, do...
 client.on('message', message => {
@@ -133,6 +193,16 @@ client.on('message', message => {
         currentName = "null";
         literalScript = false;
         isSingleUser = false;
+        writeTo = {
+
+        };
+        for(var[k,v] of collect){
+            writeTo[k] = v;
+        }
+        fs.writeFile('./state/script.json',JSON.stringify(writeTo,null,4),(err) =>{
+            if(err) throw err;
+            console.log("Wrote script file.");
+        });
         return message.channel.send("Script ended.");
     }
     if(scripting){
