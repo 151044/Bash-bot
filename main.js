@@ -154,6 +154,9 @@ function hasCommand(name,showActual){
     if(client.commands.get(name).isHidden && showActual){
         return true;
     }
+    if(!client.commands.get(name).isHIdden){
+        return true;
+    }
     return false;
 }
 function embedFrom(author,title,msg){
