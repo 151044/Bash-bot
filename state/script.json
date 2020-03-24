@@ -1,5 +1,8 @@
 {
     "make": [
         "~rr hide"
+    ],
+    "kick": [
+        "~kickyourself"
     ]
 }
