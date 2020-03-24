@@ -13,11 +13,10 @@ module.exports = {
             return;
         }
         message.delete();
-        message.channel.send("/\n/\n");
         if(main.getName() === 'root'){
-            message.channel.send(`${message.content.substring(1,message.content.length)}`);
+            message.channel.send(main.embedFrom("","",`${message.content.substring(1,message.content.length)}`));
         }else{
-            message.channel.send(`${message.content.substring(1,message.content.length - args[args.length - 1].length)}`);
+            message.channel.send(main.embedFrom("","",`${message.content.substring(1,message.content.length - args[args.length - 1].length)}`));
         }
         if(args[0] === '-Syu'){
             message.channel.send('Starting full system upgrade...');

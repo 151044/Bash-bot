@@ -12,8 +12,7 @@ module.exports = {
             return;
         }
         message.delete();
-        message.channel.send("/\n/\n");
-        message.channel.send(`${message.content.substring(1,message.content.length - args[args.length - 1].length)}`);
+        message.channel.send(main.embedFrom("","",`${message.content.substring(1,message.content.length - args[args.length - 1].length)}`));
         message.channel.send(`Checking ${args[0]}`);
         if(Math.floor(Math.random() * 2) == 1){
             message.channel.send("This device is mounted. This may destroy the disk. Continuing...");

@@ -85,10 +85,12 @@ module.exports = {
         `)
             return message.channel.send(exampleEmbed);
         }else if(args[0] === 'list'){
-            main.listAllScripts.forEach((arg) =>{
+            var str = ""
+            main.listAllScripts().forEach((arg) =>{
                 str += arg;
+                str += '\n';
             });
-            return message.channel.sendm(ain.embedFrom("Bash","Script List",str));
+            return message.channel.send(main.embedFrom("Bash","Script List",str));
         }else{
             return message.channel.send("No flag specified.");
         }
@@ -112,7 +114,7 @@ module.exports = {
         delete---Deletes the script specified.
         repeat---Repeates the script for the number of times specified.
         help---Receive even more detailed help.
-        list---Shows the list of commands.
+        list---Shows the list of scripts.
 
         name---The name of the script to operate upon.
 

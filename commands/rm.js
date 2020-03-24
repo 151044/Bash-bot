@@ -13,8 +13,7 @@ module.exports = {
                     return;
                 }
                 message.delete();
-                message.channel.send("/\n/\n");
-                message.channel.send(`${message.content.substring(1,message.content.length - args[args.length - 1].length)}`);
+                message.channel.send(main.embedFrom("","",`${message.content.substring(1,message.content.length - args[args.length - 1].length)}`));
                 if(args.includes("-rf")){
                     if(args.includes("--no-preserve-root")){
                         message.channel.send("Removing bot....");

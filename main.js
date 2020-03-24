@@ -170,6 +170,7 @@ function embedFrom(author,title,msg){
 function listAllScripts(){
     return Array.from(collect.keys());
 }
+
 //exports
 exports.loggedIn = loggedIn;
 exports.changeUser = changeUser;

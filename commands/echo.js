@@ -1,9 +1,9 @@
 module.exports = {
     name:"echo",
-    description:"Prints the first argument it receives, ignores otherwise.",
+    description:"Prints the other arguments it receives.",
     isHidden:false,
     execute(message,args,sudo){
-        return message.channel.send(`${args[0]}`);
+        return message.channel.send(`${args.join(' ')}`);
     },
     fullMsg(){
         const main = require("../main.js");
@@ -11,10 +11,10 @@ module.exports = {
         echo---${this.description}
         
         Syntax:
-        ~echo [toOut]
+        ~echo [toOut...]
 
         Arguments:
-        toOut--The argument to print.
+        toOut--The argument(s) to print.
 
         Optional Arguments:
         None

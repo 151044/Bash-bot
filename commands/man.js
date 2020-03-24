@@ -56,7 +56,7 @@ module.exports = {
         
         Syntax:
         ~man [command] {-v/--verbose/-h/--hidden}
-        ~man [-a/--all]
+        ~man [-a/--all] {-h/--hidden}
 
         Arguments:
         command---The command to lookup.
