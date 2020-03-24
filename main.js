@@ -167,7 +167,9 @@ function embedFrom(author,title,msg){
     .setDescription(msg);
     return embed;
 }
-
+function listAllScripts(){
+    return Array.from(collect.keys());
+}
 //exports
 exports.loggedIn = loggedIn;
 exports.changeUser = changeUser;
@@ -185,6 +187,7 @@ exports.getCommand = getCommand;
 exports.getCommands = getCommands;
 exports.embedFrom = embedFrom;
 exports.hasCommand = hasCommand;
+exports.listAllScripts = listAllScripts;
 
 //on message, do...
 client.on('message', message => {

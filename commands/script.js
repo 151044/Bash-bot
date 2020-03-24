@@ -57,7 +57,7 @@ module.exports = {
             .setDescription(`
             
      Script help
-            Subcommands for script: new,delete,run,repeat,help.
+            Subcommands for script: new,delete,run,repeat,help,list.
 
             Scripts capture message content until the word 'end' is typed.
 
@@ -78,9 +78,17 @@ module.exports = {
             Use ~script repeat test 3 to repeat the script 'test' 3 times.
             Warning: Excessively large values for repeat may crash the bot.
 
+            'list' shows the list of scripts registered.
+            Use ~script test to show the list of scripts registered.
+
 
         `)
             return message.channel.send(exampleEmbed);
+        }else if(args[0] === 'list'){
+            main.listAllScripts.forEach((arg) =>{
+                str += arg;
+            });
+            return message.channel.send(main.embedFrom("Bash","Script List",str);)
         }else{
             return message.channel.send("No flag specified.");
         }
@@ -96,13 +104,15 @@ module.exports = {
         ~script delete [name/all]
         ~script repeat [name] [times]
         ~script help
+        ~script list
 
         Arguments:
         new---Creates a new script.
         run---Runs the script.
         delete---Deletes the script specified.
         repeat---Repeates the script for the number of times specified.
-        help--Receive even more detailed help.
+        help---Receive even more detailed help.
+        list---Shows the list of commands.
 
         name---The name of the script to operate upon.
 
