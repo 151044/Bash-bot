@@ -88,7 +88,7 @@ module.exports = {
             main.listAllScripts.forEach((arg) =>{
                 str += arg;
             });
-            return message.channel.send(main.embedFrom("Bash","Script List",str);)
+            return message.channel.sendm(ain.embedFrom("Bash","Script List",str));
         }else{
             return message.channel.send("No flag specified.");
         }
