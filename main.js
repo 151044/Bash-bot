@@ -18,6 +18,7 @@ var write = {
 };
 var writeTo = {
 };
+var wins = new Discord.Collection();
 
 //On login, restore from state
 client.once('ready', () => {
@@ -29,6 +30,10 @@ client.once('ready', () => {
     var obj = JSON.parse(fs.readFileSync("./state/script.json"));
     for(var name in obj){
         collect.set(name,obj[name]);
+    }
+    var winGet = JSON.parse(fs.readFileSync("./state/riddleWins.json"));
+    for(var id in winGet){
+        wins.set(id,winGet[id]);
     }
     console.log('Ready!');
 });
@@ -170,7 +175,12 @@ function embedFrom(author,title,msg){
 function listAllScripts(){
     return Array.from(collect.keys());
 }
-
+function queryWins(user){
+    if(wins.has(user.id)){
+        return wins.get(user.id);
+    }
+    return 0;
+}
 //exports
 exports.loggedIn = loggedIn;
 exports.changeUser = changeUser;
@@ -189,6 +199,7 @@ exports.getCommands = getCommands;
 exports.embedFrom = embedFrom;
 exports.hasCommand = hasCommand;
 exports.listAllScripts = listAllScripts;
+exports.queryWins = queryWins;
 
 //on message, do...
 client.on('message', message => {
@@ -248,6 +259,26 @@ client.on('message', message => {
                 collect.set(currentName,[`~${message.content}`]);
             }
         }
+        return;
+    }
+
+    //Track Riddle Winners
+    if(message.content.startsWith("Game: Riddle stopped. Winner:")){
+        var winner = message.mentions.members.first();
+        if(!wins.has(winner.id)){
+            wins.set(winner.id,1);
+        }else{
+            wins.set(winner.id,wins.get(winner.id) + 1);
+        }
+        var write = {
+        };
+        for(var[k,v] of wins){
+            write[k] = v;
+        }
+        fs.writeFile('./state/riddleWins.json',JSON.stringify(write,null,4),(err) =>{
+            if(err) throw err;
+            console.log("Wrote winners file.");
+        });
         return;
     }
 
