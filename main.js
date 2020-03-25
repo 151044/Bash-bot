@@ -18,7 +18,6 @@ var write = {
 };
 var writeTo = {
 };
-var hasBotComment = 'no';
 
 //On login, restore from state
 client.once('ready', () => {
@@ -258,20 +257,10 @@ client.on('message', message => {
     }
     const lower = message.content.toLowerCase();
     if(message.content === 'bad bot'){
-        if(hasBotComment === 'no' || hasBotComment === 'bad'){
-            hasBotComment = 'bad';
-            return message.channel.send('Say what you will, I don\'t actually care about you anyways.');
-        }
-        hasBotComment = 'bad';
-        return message.channel.send('You are sending me mixed messages...');
+        return message.channel.send('Say what you will, I don\'t actually care about you anyways.');
     }
     if(message.content === 'good bot'){
-        if(hasBotComment === 'no' || hasBotComment === 'good'){
-            hasBotComment = 'good';
-            return message.channel.send('Thanks!That\'s very kind of you.');
-        }
-        hasBotComment = 'good';
-        return message.channel.send('You are sending me mixed messages...');
+        return message.channel.send('Thanks!That\'s very kind of you.');
     }
     hasBotComment = 'no';
     if(lower === 'f'){
