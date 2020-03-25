@@ -256,6 +256,9 @@ client.on('message', message => {
         return message.channel.send('You know, your stuff may be tamper-proof, but you can\'t stop me, right?');
     }
     const lower = message.content.toLowerCase();
+    if(message.content === 'bad bot'){
+        return message.channel.send('Say what you will, I don\'t actually care about you anyways.');
+    }
     if(lower === 'f'){
         return message.channel.send('Respects have been paid.');
     }
