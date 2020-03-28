@@ -22,7 +22,7 @@ module.exports = {
         }else if(args[0] === 'java'){
             return message.channe.send(`https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/${args[1]}.html`);
         }else{
-            return message.channel.send(`Available sub-commands:js,py`);
+            return message.channel.send(`Available sub-commands:js,py,java`);
         }
     },
     fullMsg(){
@@ -34,7 +34,7 @@ module.exports = {
         ~devhelp [lang] [Class]
 
         Arguments:
-        lang--The language to look up. Currently, it only accepts js and py.
+        lang--The language to look up. Currently, it only accepts js, java and py.
 
         Optional Arguments:
         None
