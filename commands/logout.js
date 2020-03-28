@@ -10,7 +10,7 @@ module.exports = {
     },
     fullMsg(){
         const main = require("../main.js");
-        return main.embedFrom("Bash","Die",`
+        return main.embedFrom("Bash","Logout",`
         logout---${this.description}
         
         Syntax:

@@ -19,6 +19,8 @@ module.exports = {
             To get a Python link, use ~devhelp py toLookup.
             `);
             return message.channel.send(embed);
+        }else if(args[0] === 'java'){
+            return message.channe.send(`https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/${args[1]}.html`);
         }else{
             return message.channel.send(`Available sub-commands:js,py`);
         }
