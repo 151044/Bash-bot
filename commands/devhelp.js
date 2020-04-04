@@ -43,7 +43,7 @@ module.exports = {
         False
         
         Note:
-        This command access the URL of documentation directly
+        This command access the URL of documentation directly.
 
         `);
     }
