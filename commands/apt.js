@@ -21,7 +21,7 @@ module.exports = {
         if(args[0] === 'install'){
             if(install.includes(args[1])){
                 if(args[1] === 'zoom'){
-                    message.channel.send("It works., but I don't really like it.")
+                    message.channel.send("It works, but I don't really like it.")
                 }
                 return message.channel.send(`Successfully installed package ${args[1]}`);
             }else if(args[1] === 'sudo'){
