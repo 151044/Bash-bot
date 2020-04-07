@@ -15,7 +15,7 @@ module.exports = {
         ~user
 
         Arguments:
-        None
+        None\
 
         Optional Arguments:
         None
