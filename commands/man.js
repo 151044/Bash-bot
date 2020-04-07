@@ -33,7 +33,7 @@ module.exports = {
             const Discord = require("discord.js");
             const embed = new Discord.MessageEmbed()
 	        .setColor('#0099ff')
-	        .setTitle('Man list')
+	        .setTitle('Manual list')
             .setAuthor('Bash')
             .setDescription(str);
             message.channel.send(embed);
