@@ -286,6 +286,9 @@ client.on('message', message => {
 	if(message.content == 'Eric...'){
         return message.channel.send('You know, your stuff may be tamper-proof, but you can\'t stop me, right?');
     }
+    if(message.content === 'You go to gulag'){
+        return message.channel.send('In Soviet Russia, gulag goes to you!');
+    }
     const lower = message.content.toLowerCase();
     if(message.content === 'bad bot'){
         return message.channel.send('Say what you will, I don\'t actually care about you anyways.');
