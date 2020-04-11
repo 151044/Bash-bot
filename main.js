@@ -1,7 +1,7 @@
 //login code
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const {token,prefix} = require('./config.json');
+const {prefix} = require('./config.json');
 
 //vars
 var logged = true;
@@ -38,7 +38,7 @@ client.once('ready', () => {
     console.log('Ready!');
 });
 const fs = require('fs');
-client.login(token);
+client.login(process.env.token_bash);
 
 //commands
 client.commands = new Discord.Collection();
