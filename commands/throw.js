@@ -16,7 +16,7 @@ module.exports = {
                 return message.channel.send("Error:Immortal object cannot be thrown.");
             }
         }else{
-            return message.channel.send(`Thrown ${args} away.`);
+            return message.channel.send(`Thrown ${args.join(" ")} away.`);
         }
     },
     fullMsg(){
