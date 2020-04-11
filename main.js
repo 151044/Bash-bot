@@ -19,6 +19,7 @@ var write = {
 var writeTo = {
 };
 var wins = new Discord.Collection();
+var prevented = new Discord.Collection();
 
 //On login, restore from state
 client.once('ready', () => {
@@ -34,6 +35,10 @@ client.once('ready', () => {
     var winGet = JSON.parse(fs.readFileSync("./state/riddleWins.json"));
     for(var id in winGet){
         wins.set(id,winGet[id]);
+    }
+    var prev = JSON.parse(fs.readFileSync("./state/preventChannels.json"));
+    for(var id in prev){
+        prevented.set(id,prev[id]);
     }
     console.log('Ready!');
 });
@@ -181,6 +186,19 @@ function queryWins(user){
     }
     return 0;
 }
+function setDeleteChannel(id,toggle){
+    prevented.set(id,toggle);
+    writeTo = { 
+    };
+    for(var[k,v] of prevented){
+        writeTo[k] = v;
+    }
+    fs.writeFile('./state/preventChannels.json',JSON.stringify(writeTo,null,4),(err) =>{
+        if(err) throw err;
+        console.log("Wrote script file.");
+    });
+}
+
 //exports
 exports.loggedIn = loggedIn;
 exports.changeUser = changeUser;
@@ -200,10 +218,18 @@ exports.embedFrom = embedFrom;
 exports.hasCommand = hasCommand;
 exports.listAllScripts = listAllScripts;
 exports.queryWins = queryWins;
+exports.setDeleteChannel = setDeleteChannel;
 
 //on message, do...
 client.on('message', message => {
     var args = message.content.slice(prefix.length).split(/ +/);
+
+    //preventing messages
+    if(prevented.has(message.channel.id) && (!message.content.startsWith("~preventmsg"))){
+        if(prevented.get(message.channel.id)){
+            message.delete();
+        }
+    }
 
     //scripting
     if(message.content.toLowerCase() === "end" && scripting){
