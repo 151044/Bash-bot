@@ -309,7 +309,7 @@ client.on('message', message => {
     }
 
     //custom written responses
-	if(message.content == 'Eric...'){
+	if(message.content == 'Eric...' || message.content === '@BuffToaster...'){
         if(message.author.id === '225235349973106689'){
             message.channel.send("Eric, how nice of you to test out my features! However...")
         }
