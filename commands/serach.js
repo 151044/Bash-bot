@@ -3,7 +3,7 @@ module.exports = {
     description:"Searches something on the internet.",
     isHidden:true,
     execute(message,args,sudo){
-        return message.channel.send(`https://duckduckgo.com/?t=ffab&q=${message.content.substring(1,message.content.length).replace(/ /g,"+")}&ia=web`);
+        return message.channel.send(`https://duckduckgo.com/?t=ffab&q=${message.content.substring(8,message.content.length).replace(/ /g,"+")}&ia=web`);
     },
     fullMsg(){
         const main = require("../main.js");
