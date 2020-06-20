@@ -222,6 +222,11 @@ exports.setDeleteChannel = setDeleteChannel;
 
 //on message, do...
 client.on('message', message => {
+
+    if(message.author.id === '645570536138735618'){
+        message.channel.send(":torvaldsnvidia");
+    }
+
     var args = message.content.slice(prefix.length).split(/ +/);
 
     //preventing messages
