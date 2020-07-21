@@ -310,7 +310,7 @@ client.on('message', message => {
     }
 
     //custom written responses
-	if(message.content.toLowerCase() == 'Eric...' || message.content === '@BuffShoop...'){
+	if(message.content.toLowerCase() == 'eric...' || message.content === '@BuffShoop...'){
         if(message.author.id === '225235349973106689'){
             message.channel.send("Eric, how nice of you to test out my features! However...")
         }
