@@ -310,11 +310,14 @@ client.on('message', message => {
     }
 
     //custom written responses
-	if(message.content.toLowerCase() == 'eric...' || message.content === '@BuffShoop...'){
+    if(message.content.toLowerCase() == 'eric...' || message.content === '@BuffShoop...'){
         if(message.author.id === '225235349973106689'){
             message.channel.send("Eric, how nice of you to test out my features! However...")
         }
         return message.channel.send('You know, your stuff may be tamper-proof, but you can\'t stop me, right?');
+    }
+    if(message.content.toLowerCase() == 'tb...'){
+	return message.channel.send('All hail the Gaylord!');
     }
     if(message.content === 'You go to gulag'){
         return message.channel.send('In Soviet Russia, gulag goes to you!');
